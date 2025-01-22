@@ -12,3 +12,15 @@ npm i express
 Meter `node_modules` a un gitignore
 
 Para arrancar el servidor lanzo `node server.j`
+
+## Endpoint basico
+Este endpoint me devuelve un "hola mundo"
+
+```javascript
+function holaMundo(request, response){
+    console.log("Hola mundo")
+    response.send("Hola mundo")
+}
+
+app.get("/", holaMundo)
+```
