@@ -43,7 +43,8 @@ for(let i=0; i < users.length; i++){
   const tr = document.createElement("tr")
   for(let j=0; j < claves.length; j++){
     const td = document.createElement("td")
-    td.innerText = claves[j]
+    const clave = claves[j]
+    td.innerText = users[i][claves]
     tr.appendChild(td)
   }
   tbody.appendChild(tr)
