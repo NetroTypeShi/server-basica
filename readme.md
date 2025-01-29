@@ -24,3 +24,26 @@ function holaMundo(request, response){
 
 app.get("/", holaMundo)
 ```
+### Tablas
+Meter:
+```HTML
+<table> //tabla
+    <thead> //titulo
+     <tbody> // cuerpo
+        <tr>//fila
+         <td> </td> //item
+         <td> </td> //item
+         <td> </td> //item
+         <td> </td> //item
+        </tr>
+     </tbody>
+    </thead>
+</table>
+```
+#### Append_Child
+```javascript
+donde_quiero_inyectar.appendChild("que_inyecto")
+doument.body.appendChild('table')
+
+const nombre = document.createElement("que creo de los que estan en <>")
+const tr = document.createElement("tr")

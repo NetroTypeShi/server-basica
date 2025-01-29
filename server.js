@@ -2,38 +2,71 @@ const express = require('express');
 
 const app = express();
 
-function holaMundo(request, response){
-    console.log("Hola mundo")
-    response.send("Hola mundo")
+
+function generateUsername() {
+    const adjectives = ["george", "fast", "floyd", "funny", "bright"];
+    const nouns = ["panda", "dragon", "tiger", "lion", "fox"];
+    const randomAdj = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+    return randomAdj + randomNoun + Math.floor(Math.random() * 1000);
 }
-const users = [
-    {
-        "username":"admin",
-        "password":"admin",
-        "email":"admin@gmail.com",
-        "status":"active"
-    },
-    {
-        "username":"user1",
-        "password":"user1",
-        "email":"user1@gmail.com",
-        "status":"active"
+
+
+function generatePassword() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+    let password = "";
+    for (let i = 0; i < 12; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
     }
-]
-
-function getUsers(request, response){
-    response.json(users)
+    return password;
 }
 
-app.get("/", (req, res )=> {
-    res.send("Hola mundo")
-})
-app.get("/users", (req, res )=>{
-    resizeBy.json(users)
-})
+
+function generateEmail(username) {
+    const domains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com"];
+    const randomDomain = domains[Math.floor(Math.random() * domains.length)];
+    return username + "@" + randomDomain;
+}
 
 
+function generateStatus() {
+    return Math.random() > 0.5 ? "active" : "inactive";
+}
 
-app.listen(3000, ()=>{
-    console.log("El servidor está funcionando en el puerto 3000")
-})
+
+function generateUsers() {
+    let users = [];
+    for (let i = 0; i < 500; i++) {
+        const username = generateUsername();
+        const password = generatePassword();
+        const email = generateEmail(username);
+        const status = generateStatus();
+        const user = {
+            "username": username,
+            "password": password,
+            "email": email,
+            "status": status
+        };
+        users.push(user);
+    }
+    return users;
+}
+
+const users = generateUsers(); 
+
+
+app.get("/users", (req, res) => {
+    res.json(users);
+});
+
+ app.get('/users/:id', (req,res)=>{
+    const id = req.params.id
+    console.log(typeof id)
+    res.json(users[id]);
+ })
+
+app.use(express.static("public"))
+
+app.listen(3000, () => {
+    console.log("El servidor está funcionando en el puerto 3000");
+});
